@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from tutorapp.views import CreateUser # importing CreateUser view 
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView # this is for the JWT tokens, to obtain and refresh
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("tutorapp/user/register/", CreateUser.as_view(), name="register_account"), # this page calls the CreateUser to register an account
+    path("tutorapp/token/", TokenObtainPairView.as_view(), name="get_token"),
+    path("tutorapp/token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
+    path("tutorapp-auth/", include("rest_framework.urls")),
 ]
