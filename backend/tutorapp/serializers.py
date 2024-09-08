@@ -5,10 +5,14 @@ from django.contrib.auth.models import User
 # serializer, takes the python object (User ^), and converts it into JSON data -> so can be used with other applications
 from rest_framework import serializers
 
+
 class UserSerializer(serializers.ModelSerializer):
-    class Serializer:
+    class Meta:
         model = User
         fields = ["id", "username", "password"]
+        # for the password
+        extra_kwargs = {"password": {"write_only": True}}
 
-        def create(self, validated_data):
-            
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
