@@ -25,4 +25,5 @@ urlpatterns = [
     path("tutorapp/token/", TokenObtainPairView.as_view(), name="get_token"),
     path("tutorapp/token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
     path("tutorapp-auth/", include("rest_framework.urls")),
+    path("tutorapp/", include("tutorapp.urls")),
 ]
